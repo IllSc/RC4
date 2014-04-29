@@ -1,6 +1,6 @@
 package Backend;
 
-import java.util.Scanner;
+import java.io.File;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -12,7 +12,13 @@ import java.util.Scanner;
  * @author Ivan
  */
 public class RC4 {
-
+    
+    private File text;
+    private File key;
+    public RC4(File text,File key){
+        this.text = text;
+        this.key = key;
+    }
     public static int[] KeyStream(int[] key) {
         int[] S = new int[256];
         for (int i = 0; i < 256; i++) {
@@ -50,22 +56,22 @@ public class RC4 {
         return message;
     }
 
-    public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
-        String key = in.next();
-        String plaintext = in.next();
-        int [] arr = new int [key.length()];
-        for(int i = 0; i<key.length(); i++ ){  
-            arr[i] = (int) key.charAt(i);
-        }
-        int [] arr2 = KeyStream(arr);
-        int [] arr3 = new int [plaintext.length()];
-        for(int i = 0; i< plaintext.length(); i++){
-            arr3[i] = (int)plaintext.charAt(i);
-        }
-        int [] message = encryption(arr3,arr2);
-        for(int i = 0; i<message.length;i++){
-            System.out.print(message[i]+" ");
-        }
-    }
+//    public static void main(String[] args) {
+//        Scanner in = new Scanner(System.in);
+//        String key = in.next();
+//        String plaintext = in.next();
+//        int [] arr = new int [key.length()];
+//        for(int i = 0; i<key.length(); i++ ){  
+//            arr[i] = (int) key.charAt(i);
+//        }
+//        int [] arr2 = KeyStream(arr);
+//        int [] arr3 = new int [plaintext.length()];
+//        for(int i = 0; i< plaintext.length(); i++){
+//            arr3[i] = (int)plaintext.charAt(i);
+//        }
+//        int [] message = encryption(arr3,arr2);
+//        for(int i = 0; i<message.length;i++){
+//            System.out.print(message[i]+" ");
+//        }
+//    }
 }
