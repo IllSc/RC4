@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -19,27 +20,43 @@ public class RC4 {
 
     private int[] text;
     private int[] key;
+    private int[] S;
     private BufferedReader reader;
 
     public RC4(File text, File key) throws IOException {
         this.key = toArray(key);
         this.text = toArray(text);
-        System.out.println("Sukses!");
-        
-        
+        this.S = KeyStream();
+
+    }
+
+    public int[] getS() {
+        return S;
+    }
+
+    public String toString(int[] arr) {
+        String temp = "";
+        for (int i = 0; i < arr.length; i++) {
+            temp = temp + " " + Integer.toHexString(arr[i]);
+        }
+        return temp;
     }
 
     public int[] toArray(File f) throws FileNotFoundException, IOException {
         reader = new BufferedReader(new FileReader(f));
-        String key = reader.readLine();
-        int[] arr = new int[key.length()];
-        for (int i = 0; i < key.length(); i++) {
-            arr[i] = (int) key.charAt(i);
+        int ch;
+        ArrayList<Integer> list = new ArrayList();
+        while ((ch = reader.read()) != -1) {
+            list.add(ch);
+        }
+        int[] arr = new int[list.size()];
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = list.get(i);
         }
         return arr;
     }
 
-    public int[] KeyStream(int[] key) {
+    public int[] KeyStream() {
         int[] S = new int[256];
         for (int i = 0; i < 256; i++) {
             S[i] = i;
@@ -56,24 +73,28 @@ public class RC4 {
         }
         return S;
     }
-    /*
-    
-     */
 
-    public int[] encryption(int[] message, int[] S) {
+    /*
+     */
+    public int[] getText() {
+        return text;
+    }
+
+    public int[] encryption() {
+       
         int i = 0;
         int j = 0;
 
-        for (int k = 0; k < message.length; k++) {
+        for (int k = 0; k < text.length; k++) {
             i = (i + 1) % 256;
             j = (j + S[i]) % 256;
             int temp = S[i];
             S[i] = S[j];
             S[j] = temp;
             int l = (S[i] + S[j]) % 256;
-            message[k] = (message[k] ^ S[l]);
+            text[k] = (text[k] ^ S[l]);
         }
-        return message;
+        return text;
     }
 
 //    public static void main(String[] args) {
