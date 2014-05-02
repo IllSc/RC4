@@ -3,11 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package GUI;
 
 import Backend.RC4;
 import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -81,6 +83,11 @@ public class Frontend extends javax.swing.JFrame {
         });
 
         jButton4.setText("Dekripsi");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -168,7 +175,7 @@ public class Frontend extends javax.swing.JFrame {
         String path = key.getAbsolutePath();
         jTextField1.setText(path);
     }//GEN-LAST:event_jButton1ActionPerformed
-    
+
     //Event Text
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         JFileChooser chooser = new JFileChooser();
@@ -178,11 +185,22 @@ public class Frontend extends javax.swing.JFrame {
         jTextField2.setText(path);
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    //Event Dekripsi
+    //Event enskripsi
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        JDialog dialog = new JDialog();
-        //dialog.
+        try {
+            engine = new RC4(text, key);
+            JFileChooser chooser = new JFileChooser();
+            chooser.showSaveDialog(null);
+            
+        } catch (IOException e) {
+            //
+        }
+
     }//GEN-LAST:event_jButton3ActionPerformed
+    //Event dekripsi
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments

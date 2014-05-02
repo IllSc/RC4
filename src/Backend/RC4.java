@@ -24,6 +24,8 @@ public class RC4 {
     public RC4(File text, File key) throws IOException {
         this.key = toArray(key);
         this.text = toArray(text);
+        System.out.println("Sukses!");
+        
         
     }
 
